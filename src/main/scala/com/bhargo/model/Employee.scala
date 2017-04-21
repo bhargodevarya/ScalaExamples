@@ -7,16 +7,17 @@ package com.bhargo.model
   * @param empId employee ID which is unique
   * @param _name name
   * @param email email which is unique
+  * @param _role role of the employee
   * case class which already has the following:-
   * apply(), unapply(), companion object, toString(), equals(), hashcode(), copy(), serialization
   * variables are val by default
   */
-  class Employee (var empId:String, private var _name:String, email:String) {
+  class Employee (empId:String, _name:String, email:String, private var _role: Role) {
 
   println("inline code is executed as part of the primary constructor")
 
   /**
-    * for provate contructor, private keyword before the constructor parenthesis
+    * for private contructor, private keyword before the constructor parenthesis
     */
 
   /**
@@ -25,7 +26,7 @@ package com.bhargo.model
     * @param email
     * @return
     */
-  def this(name:String, email:String) = this("", name, email)
+  def this(empId:String, name:String, email:String) = this(empId, name, email, null)
 
   /**
     * by default all variables are val, i.e. immutable
@@ -37,9 +38,23 @@ package com.bhargo.model
   /**
     * getter and a setter method, in case your variables are private var
     */
-  def name = _name
-  def name_=(newName:String) = _name = newName
+  def role = _role
+  def role_=(newRole: Role) = _role = newRole
 
+
+  /**
+    * gives a {@link com.bhargo.model.Role} to the employee
+    * @param userRole
+    * @return the current instance on which the operation was performed
+    */
+  def as (userRole: Role) :Employee = {
+    println("created user as " + userRole)
+    role = userRole
+    this
+  }
+
+  override def toString(): String = "Empid is " + empId + ", name is "+
+    _name + ", email is " + email + ", role is " + role
 }
 
 /**
